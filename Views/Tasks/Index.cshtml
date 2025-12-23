@@ -1,0 +1,80 @@
+﻿@model IEnumerable<TaskManagerSqliteMvc.Models.TaskItem>
+
+@{
+    ViewData["Title"] = "Tasks";
+}
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+        <h2 class="mb-0">Task Manager</h2>
+        <div class="text-muted">Simple MVC + SQLite CRUD</div>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">
+        + New Task
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No tasks yet. Click <b>New Task</b> to add your first one.
+    </div>
+}
+else
+{
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 45%;">Title</th>
+                        <th style="width: 25%;">Created</th>
+                        <th style="width: 10%;">Status</th>
+                        <th style="width: 20%;" class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="fw-semibold">@item.Title</div>
+                                @if (!string.IsNullOrWhiteSpace(item.Description))
+                                {
+                                    <div class="text-muted small">@item.Description</div>
+                                }
+                            </td>
+                            <td class="text-muted">
+                                @item.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                            </td>
+                            <td>
+                                @if (item.IsCompleted)
+                                {
+                                    <span class="badge bg-success">Done</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Pending</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-outline-secondary btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                    <a class="btn btn-outline-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                    <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </div>
+
+                                <form asp-action="ToggleDone" asp-route-id="@item.Id" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm @(item.IsCompleted ? "btn-success" : "btn-outline-success") ms-2">
+                                        @(item.IsCompleted ? "Undo" : "Mark done")
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

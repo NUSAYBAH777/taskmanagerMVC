@@ -1,0 +1,46 @@
+﻿@model TaskManagerSqliteMvc.Models.TaskItem
+
+@{
+    ViewData["Title"] = "Task Details";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Task Details</h4>
+                <span class="badge @(Model.IsCompleted ? "bg-success" : "bg-secondary")">
+                    @(Model.IsCompleted ? "Done" : "Pending")
+                </span>
+            </div>
+
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-3 text-muted">Title</dt>
+                    <dd class="col-sm-9 fw-semibold">@Model.Title</dd>
+
+                    <dt class="col-sm-3 text-muted">Description</dt>
+                    <dd class="col-sm-9">
+                        @if (string.IsNullOrWhiteSpace(Model.Description))
+                        {
+                            <span class="text-muted">—</span>
+                        }
+                        else
+                        {
+                            @Model.Description
+                        }
+                    </dd>
+
+                    <dt class="col-sm-3 text-muted">Created</dt>
+                    <dd class="col-sm-9">@Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</dd>
+                </dl>
+
+                <div class="d-flex gap-2 mt-3">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Edit</a>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger ms-auto">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

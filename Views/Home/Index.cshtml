@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Task Manager";
+}
+
+<div class="container py-5">
+    <div class="row align-items-center">
+        <!-- Left content -->
+        <div class="col-lg-7">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="bi bi-check2-square text-primary me-2"></i> Task Manager
+            </h1>
+
+            <p class="lead text-muted">
+                A simple and clean web application to help you manage your daily tasks.
+                Create tasks, update their status, and stay productive.
+            </p>
+
+            <div class="mt-4 d-flex flex-wrap gap-3">
+                <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary btn-lg shadow-sm">
+                    <i class="bi bi-list-task me-2"></i> View Tasks
+                </a>
+
+                <a asp-controller="Tasks" asp-action="Create" class="btn btn-outline-secondary btn-lg shadow-sm">
+                    <i class="bi bi-plus-circle me-2"></i> Add New Task
+                </a>
+            </div>
+
+            <div class="mt-4">
+                <span class="badge bg-success me-2">ASP.NET MVC</span>
+                <span class="badge bg-dark me-2">SQLite</span>
+                <span class="badge bg-info text-dark">Entity Framework Core</span>
+            </div>
+        </div>
+
+        <!-- Right card -->
+        <div class="col-lg-5 mt-5 mt-lg-0">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3">
+                        <i class="bi bi-stars text-warning me-2"></i> Application Features
+                    </h5>
+                    <ul class="list-unstyled text-muted mb-0">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Create and manage tasks</li>
+                        <li class="mb-2"><i class="bi bi-pencil-square text-primary me-2"></i> Edit and delete tasks</li>
+                        <li class="mb-2"><i class="bi bi-bar-chart-line-fill text-info me-2"></i> Track task progress</li>
+                        <li class="mb-2"><i class="bi bi-ui-checks-grid text-secondary me-2"></i> Clean and simple UI</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
